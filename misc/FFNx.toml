@@ -689,9 +689,13 @@ ff7_external_opening_music = false
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ff7_field_center = true
 
-# This flag enables Japanese text rendering mode
+# Native Japanese edition
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
-ff7_japanese_text = false
+# This flag will force the game to use the native Japanese font rendering.
+# Native eStore release will auto-enable this flag.
+# NOTE: This WILL NOT work on non-Japanese releases. You need the official Japanese release to make use of it.
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ff7_japanese_edition = false
 
 ## MODDER OPTIONS - These options are mostly useful to modders and should not be enabled during normal play.
 

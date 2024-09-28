@@ -365,7 +365,7 @@ void ff7_init_hooks(struct game_obj *_game_object)
 	// ###########################
 	// japanese text
 	// ###########################
-	if (ff7_japanese_text)
+	if (ff7_japanese_edition)
 	{
 		replace_function(ff7_externals.field_submit_draw_text_640x480_6E706D, field_submit_draw_text_640x480_6E706D_jp);
 		replace_function((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, engine_load_menu_graphics_objects_6C1468_jp);
