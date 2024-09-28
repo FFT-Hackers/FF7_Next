@@ -44,6 +44,9 @@
 
 - Full commit list since last stable release: https://github.com/julianxhokaxhiu/FFNx/compare/1.20.1...1.20.2
 
+## FF7
+- Rendering: Added option for japanese text rendering ( https://github.com/julianxhokaxhiu/FFNx/pull/737 )
+
 ## FF7 Steam
 
 - Core: Fix crash when entering Config menu in Spanish ( https://github.com/julianxhokaxhiu/FFNx/discussions/735 )

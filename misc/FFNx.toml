@@ -689,6 +689,10 @@ ff7_external_opening_music = false
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ff7_field_center = true
 
+# This flag enables Japanese text rendering mode
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ff7_japanese_text = false
+
 ## MODDER OPTIONS - These options are mostly useful to modders and should not be enabled during normal play.
 
 # This is the path where your savefiles will be read.

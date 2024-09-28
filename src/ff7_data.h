@@ -531,8 +531,8 @@ inline void ff7_find_externals(struct ff7_game_obj* game_object)
 
 	ff7_externals.field_opcode_message_update_loop_630D50 = get_relative_call(ff7_externals.opcode_message, 0x3B);
 	ff7_externals.field_text_box_window_create_631586 = get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x39);
-	ff7_externals.field_text_box_window_opening_6317A9 = get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x5A);
-	ff7_externals.field_text_box_window_paging_631945 = get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x6D);
+	ff7_externals.field_text_box_window_opening_6317A9 = (void (*)(short))get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x5A);
+	ff7_externals.field_text_box_window_paging_631945 = (void (*)(short))get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x6D);;
 	ff7_externals.field_text_box_window_reverse_paging_632CAA = get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x80);
 	ff7_externals.field_text_box_window_closing_632EB8 = get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x235);
 	ff7_externals.opcode_message_loop_code = (WORD*)get_absolute_value(ff7_externals.field_opcode_message_update_loop_630D50, 0x12);
@@ -1408,6 +1408,155 @@ inline void ff7_find_externals(struct ff7_game_obj* game_object)
 	ff7_externals.sub_733564 = (point4d* (__thiscall *)(void*, vector3<float>*, point4d*))get_relative_call(ff7_externals.snowboard_parse_model_vertices_732159, 0xDC);
 	ff7_externals.snowboard_global_object_off_926290 = (DWORD*)get_absolute_value(ff7_externals.snowboard_parse_model_vertices_732159, 0x55);
 	// --------------------------------
+
+	// japanese
+	ff7_externals.engine_loop_main_loop_sub_4090E6 = get_absolute_value(ff7_externals.swirl_loop_sub_4026D4, 0x11E);
+	ff7_externals.menu_enter_sub_6CD3B0 = get_absolute_value(ff7_externals.engine_loop_main_loop_sub_4090E6, 0x627);
+	ff7_externals.engine_load_menu_graphics_objects_6C1468 = (void (*)(int))get_relative_call(ff7_externals.menu_enter_sub_6CD3B0, 0x2B);
+
+	ff7_externals.sub_671082 = (void (*)(ff7_graphics_object**))get_relative_call((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x28);
+	ff7_externals.sub_674530 = (int (*)())get_relative_call((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0xF5);
+	ff7_externals.sub_67453A = (void (*)(int))get_relative_call((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0xFF);
+	ff7_externals.make_struc3_6745E6 = (void (*)(int, struc_3*))get_relative_call((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x10D);
+	ff7_externals.engine_set_blendmode_674659 = (void (*)(int, struc_3 *))get_relative_call((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x15B);
+	ff7_externals.engine_load_graphics_object_6710AC = (ff7_graphics_object* (*)(int, signed int, struc_3 *, char *, int))get_relative_call((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x1A4);
+	ff7_externals.engine_get_viewport_type_404D80 = (int (*)())get_relative_call((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x9);
+	ff7_externals.engine_get_game_object_676578 = (ff7_game_obj* (*)())get_relative_call((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x11);
+
+	ff7_externals.unk_DC1074 = (unsigned int*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x12D);
+	ff7_externals.aUsfont_a_h_tim = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x16F);
+	ff7_externals.aUsfont_a_l_tim = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x17B);
+	ff7_externals.aUsfont_b_h_tim = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x1CB);
+	ff7_externals.aUsfont_b_l_tim = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x1D7);
+	ff7_externals.aBtl_win_a_h_ti = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x219);
+	ff7_externals.aBtl_win_a_l_ti = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x225);
+	ff7_externals.aBtl_win_b_h_ti = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x2DD);
+	ff7_externals.aBtl_win_b_l_ti = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x2E9);	
+	ff7_externals.aBtl_win_c_h_ti = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x36D);		
+	ff7_externals.aBtl_win_c_l_ti = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x379);		
+	ff7_externals.aBtl_win_d_h_ti = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x454);		
+	ff7_externals.aBtl_win_d_l_ti = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x460);		
+	ff7_externals.aUsfont_h_tim = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x4F7);			
+	ff7_externals.aUsfont_l_tim = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x503);			
+	ff7_externals.aBtl_win_h_tim = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x545);			
+	ff7_externals.aBtl_win_l_tim = (char*)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x551);			
+	
+	ff7_externals.field_draw_everything_sub_63A60B = get_relative_call(ff7_externals.field_sub_6388EE, 0x11);
+	ff7_externals.field_submit_and_draw_text_box_and_text_6EBF2C = get_relative_call(ff7_externals.field_draw_everything_sub_63A60B, 0x39A);
+	ff7_externals.field_submit_draw_text_640x480_6E706D = get_relative_call(ff7_externals.field_submit_and_draw_text_box_and_text_6EBF2C, 0x363);
+
+	ff7_externals.field_text_box_curr_n_characters_DC3CB0 = (int*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0xD1);
+	ff7_externals.field_text_line_row_DC3CB8 = (int*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0xC4);
+	ff7_externals.field_remaining_character_length_DC3CCC = (short*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x4F);	
+	ff7_externals.field_current_window_pos_x_DC3CB4 = (int*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x99);	
+	ff7_externals.word_91F028 = (short*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x232);	
+	ff7_externals.word_DC3CC0 = (short*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x261);	
+	ff7_externals.word_DC3CC4 = (short*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x28E);	
+	ff7_externals.dword_DC3CD4 = (int*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x2B9);
+	ff7_externals.word_DC3CC8 = (short*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x62D);	
+	ff7_externals.g_text_spacing_DB958C = (int*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x717);	
+	ff7_externals.menu_font_a_graphics_object_DC100C = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x7ED);
+	ff7_externals.menu_font_b_graphics_object_DC1010 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x7AC);
+	ff7_externals.menu_win_a_blend_4_graphics_object_DC0FC8 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x323);
+	ff7_externals.menu_win_b_blend_4_graphics_object_DC0FCC = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x33A);
+	ff7_externals.menu_win_c_blend_4_graphics_object_DC0FD0 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x58);
+	ff7_externals.menu_win_d_blend_4_graphics_object_DC0FD4 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x65);
+	ff7_externals.menu_win_a_blend_0_graphics_object_DC0FDC = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x72);
+	ff7_externals.menu_win_a_blend_1_graphics_object_DC0FE0 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x7F);
+	ff7_externals.menu_win_b_blend_1_graphics_object_DC0FE4 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x8C);
+	ff7_externals.menu_win_c_blend_1_graphics_object_DC0FE8 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0x99);
+	ff7_externals.menu_win_d_blend_1_graphics_object_DC0FEC = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0xA6);
+	ff7_externals.menu_font_blend_4_graphics_object_DC1048 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0xB5);
+	ff7_externals.menu_win_blend_4_graphics_object_DC104C = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0xC2);
+	ff7_externals.menu_win_blend_0_graphics_object_DC1050 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0xCF);
+	ff7_externals.menu_win_blend_1_graphics_object_DC1054 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0xDC);
+	ff7_externals.menu_win_c_blend_4_diff_graphics_object_DC0FD8 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, 0xE9);	
+
+	ff7_externals.field_do_draw_character_DC3CEC = (int*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0xA60);
+	ff7_externals.field_do_draw_text_boxes_DC3CE8 = (int*)get_absolute_value((uint32_t)ff7_externals.field_submit_draw_text_640x480_6E706D, 0x5AE);
+
+	ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68 = (void (*)())get_relative_call(ff7_externals.field_submit_and_draw_text_box_and_text_6EBF2C, 0xBD); 
+	ff7_externals.engine_gfx_draw_predefined_polygon_set_field_84_sub_660E95 = (void (*)(int, ff7_game_obj*))get_relative_call((uint32_t) ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x28); 
+	ff7_externals.engine_gfx_set_single_renderstate_sub_660C3A = (void (*)(int, int, ff7_game_obj *))get_relative_call((uint32_t) ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x38); 
+	ff7_externals.engine_draw_graphics_object_66E641 = (void (*)(ff7_graphics_object*, ff7_game_obj*))get_relative_call((uint32_t) ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x4A); 
+	ff7_externals.reset_field_54_graphics_object_66E62C = (void (*)(ff7_graphics_object*))get_relative_call((uint32_t) ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x59); 
+	
+	ff7_externals.menu_is_small_viewport_320_240_DC130C = (int*)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0xE);	
+	ff7_externals.dword_DC3CE0 = (int*)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x29B);	
+	ff7_externals.dword_DC3CDC = (int*)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x2CF);	
+	ff7_externals.menu_window_bg_graphics_object_DC0FF0 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x54);
+	ff7_externals.menu_blend_window_bg_graphics_object_DC0FF4 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x98);
+	ff7_externals.text_box_do_draw_menu_win_c_blend_4_DC3CE4 = (int*)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x15E);	
+	ff7_externals.text_box_do_draw_black_quad_graphics_object_DC3CF0 = (int*)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x226);	
+	ff7_externals.menu_text_box_quad_graphics_object_DC1008 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x251);
+	ff7_externals.dword_DC3D00 = (int*)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x26F);	
+	ff7_externals.do_draw_text_box_DC3CF8 = (int*)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x283);	
+	ff7_externals.should_draw_text_box_black_quad_DC3D04 = (int*)get_absolute_value((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, 0x28C);	
+	
+	ff7_externals.battle_menu_display_menu_6D82EA = get_relative_call(battle_sub_6D83C8, 0xE0);
+	ff7_externals.battle_display_base_menu_6DD041 = get_relative_call(ff7_externals.display_battle_menu_6D797C, 0x29);
+	ff7_externals.common_submit_draw_char_from_buffer_6F564E = (int (*)(int, int, int, unsigned __int16, float))get_relative_call(ff7_externals.battle_display_base_menu_6DD041, 0x382); 
+	ff7_externals.menu_loop_sub_6CC623 = get_absolute_value(ff7_externals.engine_loop_main_loop_sub_4090E6, 0x62E);
+	ff7_externals.menu_draw_everything_6CC9D3 = (void (*)())get_relative_call(ff7_externals.menu_loop_sub_6CC623, 0x117);
+	
+	ff7_externals.g_get_do_render_menu_6CDBF2 = (int (*)())get_relative_call((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x4);
+
+	ff7_externals.dword_DC12DC = (int*)get_absolute_value((uint32_t)ff7_externals.common_submit_draw_char_from_buffer_6F564E, 0x1D5);
+
+	ff7_externals.engine_gfx_draw_graphics_object_polygon_set_field_80_sub_660E6A = (void (*)(ff7_graphics_object*, ff7_game_obj*))get_relative_call((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x42);
+	ff7_externals.engine_gfx_setviewport_sub_66067A = (void (*)(unsigned int, unsigned int, unsigned int, unsigned int, ff7_game_obj*))get_relative_call((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x381);
+
+	ff7_externals.menu_unknown3_graphics_object_DC0FFC = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x3D);
+	ff7_externals.dword_DC12EC = (int*)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x129);
+	ff7_externals.dword_DC12E4 = (int*)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x132);
+	ff7_externals.menu_avatar2_1_graphics_object_DC1020 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x142);
+    ff7_externals.menu_avatar2_2_graphics_object_DC1024 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x155);
+    ff7_externals.menu_avatar2_3_graphics_object_DC1028 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x168);
+    ff7_externals.menu_avatar2_4_graphics_object_DC102C = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x17A);
+    ff7_externals.menu_avatar2_5_graphics_object_DC1030 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x18D);
+    ff7_externals.menu_avatar2_6_graphics_object_DC1034 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x1A0);
+    ff7_externals.menu_avatar2_7_graphics_object_DC1038 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x1B2);
+    ff7_externals.menu_avatar2_8_graphics_object_DC103C = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x1C5);
+    ff7_externals.menu_avatar2_9_graphics_object_DC1040 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x1D8);
+	ff7_externals.menu_avatar_1_graphics_object_DC1014 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x1EC);
+    ff7_externals.menu_avatar_2_graphics_object_DC1018 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x1FF);
+    ff7_externals.menu_avatar_3_graphics_object_DC101C = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x212);
+	ff7_externals.engine_game_mode_word_CBF9DC = (short*)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x222);
+	ff7_externals.menu_buster_tex_graphics_object_DC1044 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x241);
+    ff7_externals.menu_unknown4_graphics_object_DC1000 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x280);
+	ff7_externals.menu_unknown2_graphics_object_DC0FF8 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x2A5);
+	ff7_externals.menu_viewport_x_DC105C = (unsigned int*)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x37C);
+	ff7_externals.menu_viewport_y_DC1060 = (unsigned int*)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x376);
+	ff7_externals.menu_viewport_width_DC1064 = (unsigned int*)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x36F);
+	ff7_externals.menu_viewport_view_DC1068 = (unsigned int*)get_absolute_value((uint32_t)ff7_externals.menu_draw_everything_6CC9D3, 0x368);
+
+	
+	ff7_externals.battle_loop_sub_41BAB3 = get_absolute_value(ff7_externals.engine_loop_main_loop_sub_4090E6, 0x89A);
+	ff7_externals.battle_draw_menu_everything_6CEE84 = (void (*)())get_relative_call(ff7_externals.battle_loop_sub_41BAB3, 0x378); 
+
+	ff7_externals.menu_unknown5_graphics_object_DC1004 = (ff7_graphics_object**)get_absolute_value((uint32_t)ff7_externals.battle_draw_menu_everything_6CEE84, 0x2B9);
+
+	ff7_externals.battle_display_text_6D7245 = get_relative_call(ff7_externals.battle_sub_42D808, 0xAD);
+	ff7_externals.draw_text_top_display_6D1CC0 = (void (*)(int, __int16, char, unsigned __int16))get_relative_call(ff7_externals.battle_display_text_6D7245, 0x9A);
+	ff7_externals.kernel_get_text_sub_41963C = (attack_name_fixed_buffer* (*)(unsigned int a1, int a2, int a3))get_relative_call((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x124);
+	ff7_externals.sub_6D70F1 = (char (*)(int))get_relative_call((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x1F9);
+
+	ff7_externals.battle_menu_data_DC3630 = (battle_menu_data**)get_absolute_value((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x35);
+	ff7_externals.byte_DC3640 = (char*)get_absolute_value((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x204);
+	ff7_externals.battle_text_buffer_DC208C = (attack_name_fixed_buffer**)get_absolute_value((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x8C);
+	ff7_externals.battle_graphics_data_ptr_9ADFD8 = (battle_graphics_data**)get_absolute_value((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x11A9);
+	ff7_externals.g_is_battle_paused_DC0E6C = (char*)get_absolute_value((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x119C);
+	ff7_externals.dword_91EFC8 = (bgra_byte*)get_absolute_value((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x3239);
+	ff7_externals.dword_91EFCC = (bgra_byte*)get_absolute_value((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x32C1);
+	ff7_externals.dword_91EFD0 = (bgra_byte*)get_absolute_value((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x3349);
+	ff7_externals.dword_91EFD4 = (bgra_byte*)get_absolute_value((uint32_t)ff7_externals.draw_text_top_display_6D1CC0, 0x33E4);
+
+	ff7_externals.engine_field_A58_sub_6C0E2D = get_absolute_value(ff7_externals.init_stuff, 0x391);
+	ff7_externals.main_menu_draw_everything_maybe_6C0B91 = (void (*)())get_relative_call(ff7_externals.engine_field_A58_sub_6C0E2D, 0x9A);
+
+	ff7_externals.text_box_window_data_array_CFF5B8 = (text_box_data*)get_absolute_value((uint32_t)ff7_externals.field_text_box_window_create_631586, 0x135);
+	ff7_externals.field_text_box_window_entity_id_CC0960 = (byte*)get_absolute_value((uint32_t)ff7_externals.field_text_box_window_opening_6317A9, 0xB);
+	ff7_externals.current_entity_id_byte_CC0964 = (byte*)get_absolute_value((uint32_t)ff7_externals.field_text_box_window_opening_6317A9, 0x13);
 
 	// Steam achievement
 	uint32_t sub_434347 = get_relative_call(ff7_externals.battle_loop, 0x484);
