@@ -40,12 +40,13 @@
 
 - Core: Fix Card Game mode and allow it to run at 60 FPS
 
+## FF7
+
+- Core: Add native support for japanese text rendering ( https://github.com/julianxhokaxhiu/FFNx/pull/737 )
+
 # 1.20.2
 
 - Full commit list since last stable release: https://github.com/julianxhokaxhiu/FFNx/compare/1.20.1...1.20.2
-
-## FF7
-- Rendering: Added option for japanese text rendering ( https://github.com/julianxhokaxhiu/FFNx/pull/737 )
 
 ## FF7 Steam
 
