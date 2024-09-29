@@ -383,6 +383,8 @@ void ff7_init_hooks(struct game_obj *_game_object)
 		patch_code_byte(0x632C4E + 0x2, 0xC);
 		patch_code_byte(0x632C4E + 0x3, 0xC);
 		patch_code_byte(0x632C4E + 0x4, 0xC);
+
+		replace_function(ff7_externals.sub_6F54A2, sub_6F54A2_jp);
 	}
 
 	//######################

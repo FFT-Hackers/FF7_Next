@@ -128,3 +128,4 @@ void draw_text_top_display_6D1CC0_jp(int a1, __int16 menu_box_idx, char a3, unsi
 void main_menu_draw_everything_maybe_6C0B91_jp();
 void field_text_box_window_paging_631945_jp(short);
 void field_text_box_window_opening_6317A9_jp(short);
+int sub_6F54A2_jp(byte *a1);

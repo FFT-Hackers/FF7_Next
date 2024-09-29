@@ -3894,6 +3894,8 @@ struct ff7_externals
 	ff7_graphics_object* menu_jafont_4_graphics_object;
 	ff7_graphics_object* menu_jafont_5_graphics_object;
 	ff7_graphics_object* menu_jafont_6_graphics_object;
+
+	uint32_t sub_6F54A2;
 };
 
 uint32_t ff7gl_load_group(uint32_t group_num, struct matrix_set *matrix_set, struct p_hundred *hundred_data, struct p_group *group_data, struct polygon_data *polygon_data, struct ff7_polygon_set *polygon_set, struct ff7_game_obj *game_object);

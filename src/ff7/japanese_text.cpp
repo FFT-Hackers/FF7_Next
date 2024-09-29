@@ -314,7 +314,7 @@ int charWidthData[6][256] =
         30, 30, 28, 31, 30, 30, 29, 29, 30, 30, 29, 30, 31, 30, 29, 27,
         30, 29, 29, 29, 31, 30, 28, 23, 30, 30, 30, 31, 29, 31, 30, 30,
         31, 30, 30, 31, 31, 29, 21, 28, 29, 30, 30, 27, 31, 30, 30, 29,
-        29, 30, 30, 22, 22, 22, 22, 23, 22, 22, 22, 22, 22, 51, 53, 16,
+        29, 30, 30, 22, 22, 22, 22, 23, 22, 22, 22, 22, 22, 51, 62, 16,
         28, 29, 24, 30, 26, 29, 29, 29, 28, 29, 26, 29, 29, 28, 25, 23,
         28, 28, 25, 25, 30, 28, 28, 23, 27, 29, 28, 30, 25, 28, 26, 28,
         29, 28, 26, 28, 29, 28, 20, 25, 25, 24, 28, 28, 24, 27, 28, 28,
@@ -2270,4 +2270,107 @@ void field_text_box_window_opening_6317A9_jp(short WINDOW_ID)
       ff7_externals.text_box_window_data_array_CFF5B8[WINDOW_ID].window_mode = 2;
     }
   }
+}
+
+int sub_6F54A2_jp(byte *a1)
+{
+  int v2; // [esp+Ch] [ebp-Ch]
+  int v3; // [esp+10h] [ebp-8h]
+  int v4; // [esp+14h] [ebp-4h]
+
+  v3 = 0;
+  v2 = 0;
+  bool kanjiDetected = false;
+  int charWidth = 0;
+  int leftPadding = 0;
+  while ( v3 < 64 /*ff7_externals.g_max_string_length_91F034*/ && a1 && (unsigned __int8)*a1 != 255 )
+  {
+    /*switch ( *a1 )
+    {
+      case 250:
+        ++a1;
+        v4 = 231;
+        break;
+      case 251:
+        ++a1;
+        v4 = 441;
+        break;
+      case 252:
+        ++a1;
+        v4 = 672;
+        break;
+      case 253:
+        ++a1;
+        v4 = 882;
+        break;
+      case 254:
+        ++a1;
+        v4 = 1092;
+        break;
+      default:
+        v4 = 0;
+        break;
+    }*/
+
+    auto next_char = a1 + 1;
+    switch ( *a1 )
+      {
+        case 0xFAu:
+          kanjiDetected = true;
+          charWidth = charWidthData[1][*next_char] & 0x1F;
+          leftPadding = charWidthData[1][*next_char] >> 5;
+          ++a1;
+          ++v3;
+          continue;
+        case 0xFBu:
+          kanjiDetected = true;
+          charWidth = charWidthData[2][*next_char] & 0x1F;
+          leftPadding = charWidthData[2][*next_char] >> 5;
+          ++a1;
+          ++v3;
+          continue;
+        case 0xFCu:
+          kanjiDetected = true;
+          charWidth = charWidthData[3][*next_char] & 0x1F;
+          leftPadding = charWidthData[3][*next_char] >> 5;
+          ++a1;
+          ++v3;
+          continue;
+        case 0xFDu:
+          kanjiDetected = true;
+          charWidth = charWidthData[4][*next_char] & 0x1F;
+          leftPadding = charWidthData[4][*next_char] >> 5;
+          ++a1;
+          ++v3;
+          continue;
+        case 0xFEu:
+
+          kanjiDetected = true;
+          charWidth = charWidthData[5][*next_char] & 0x1F;
+          leftPadding = charWidthData[5][*next_char] >> 5;
+          ++a1;
+          ++v3;
+          continue;
+        default:
+          if(!kanjiDetected)
+          {
+            charWidth = charWidthData[0][*a1] & 0x1F;
+            leftPadding = charWidthData[0][*a1] >> 5;
+          }
+          kanjiDetected = false;
+          break;
+      }
+
+    /*if ( ff7_externals.dword_DC12DC )
+      v2 += (__int64)((double)(*(byte *)(ff7_externals.g_text_spacing_DB958C + v4 + (unsigned __int8)*a1) & 0x1F) * 1.6666666)
+          + (__int64)((double)((int)*(unsigned __int8 *)(ff7_externals.g_text_spacing_DB958C + v4 + (unsigned __int8)*a1) >> 5)
+                    * 1.6666666);
+    else
+      v2 += 2 * ((int)*(unsigned __int8 *)(ff7_externals.g_text_spacing_DB958C + v4 + (unsigned __int8)*a1) >> 5)
+          + 2 * (*(byte *)(ff7_externals.g_text_spacing_DB958C + v4 + (unsigned __int8)*a1) & 0x1F);*/
+    v2 += leftPadding + std::ceil(0.5f * charWidth);
+    ++a1;
+    ++v3;
+  }
+  return v2;
 }

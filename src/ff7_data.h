@@ -1409,6 +1409,49 @@ inline void ff7_find_externals(struct ff7_game_obj* game_object)
 	ff7_externals.snowboard_global_object_off_926290 = (DWORD*)get_absolute_value(ff7_externals.snowboard_parse_model_vertices_732159, 0x55);
 	// --------------------------------
 
+	// Steam achievement
+	uint32_t sub_434347 = get_relative_call(ff7_externals.battle_loop, 0x484);
+	uint32_t* pointer_functions_7C2980 = (uint32_t*)get_absolute_value(sub_434347, 0x19C);
+	ff7_externals.battle_enemy_killed_sub_433BD2 = pointer_functions_7C2980[0];
+	ff7_externals.battle_sub_5C7F94 = get_relative_call(ff7_externals.battle_enemy_killed_sub_433BD2, 0x2AF);
+	ff7_externals.menu_battle_end_mode = (uint16_t*)get_absolute_value(ff7_externals.menu_battle_end_sub_6C9543, 0x2C);
+	uint32_t menu_sub_6CBD54 = get_relative_call(ff7_externals.menu_sub_6CDA83, 0xC1);
+	ff7_externals.menu_sub_71FF95 = get_relative_call(menu_sub_6CBD54, 0x7);
+	ff7_externals.menu_shop_loop = get_relative_call(ff7_externals.menu_sub_71FF95, 0x84);
+	if (version == VERSION_FF7_102_US) {
+		ff7_externals.get_materia_gil = get_relative_call(ff7_externals.menu_shop_loop, 0x548);
+	} else {
+		ff7_externals.get_materia_gil = get_relative_call(ff7_externals.menu_shop_loop, 0x5C4);
+	}
+	ff7_externals.opcode_increase_gil_call = get_relative_call(ff7_externals.opcode_goldu, 0x38);
+
+	ff7_externals.display_battle_action_text_sub_6D71FA = get_relative_call(ff7_externals.display_battle_action_text_42782A, 0x77);
+
+	ff7_externals.opcode_add_materia_inventory_call = get_relative_call(ff7_externals.opcode_smtra, 0x72);
+	ff7_externals.menu_sub_6CBCF3 = get_relative_call(ff7_externals.opcode_add_materia_inventory_call, 0x43);
+	ff7_externals.menu_sub_705D16 = ff7_externals.menu_subs_call_table[4];
+	ff7_externals.menu_sub_6CC17F = get_relative_call(ff7_externals.menu_sub_705D16, 0x1729);
+
+	ff7_externals.menu_decrease_item_quantity = get_relative_call(ff7_externals.opcode_dlitm, 0x38);
+
+	ff7_externals.sub_60FA7D = get_relative_call(ff7_externals.opcode_setbyte, 0x14);
+
+	uint32_t menu_sub_6CBD65 = get_relative_call(ff7_externals.menu_sub_6CDA83, 0x54);
+	uint32_t menu_sub_722393 = get_relative_call(menu_sub_6CBD65, 0x4);
+	ff7_externals.menu_sub_7212FB = get_relative_call(menu_sub_722393, 0x8B);
+	switch(version) {
+		case VERSION_FF7_102_US:
+		case VERSION_FF7_102_SP:
+			ff7_externals.load_save_file = get_relative_call(ff7_externals.menu_sub_7212FB, 0xE9D);
+			break;
+		case VERSION_FF7_102_DE:
+		case VERSION_FF7_102_FR:
+			ff7_externals.load_save_file = get_relative_call(ff7_externals.menu_sub_7212FB, 0xEC5);
+			break;
+	}
+
+	// --------------------------------
+
 	// japanese
 	ff7_externals.engine_loop_main_loop_sub_4090E6 = get_absolute_value(ff7_externals.swirl_loop_sub_4026D4, 0x11E);
 	ff7_externals.menu_enter_sub_6CD3B0 = get_absolute_value(ff7_externals.engine_loop_main_loop_sub_4090E6, 0x627);
@@ -1558,48 +1601,7 @@ inline void ff7_find_externals(struct ff7_game_obj* game_object)
 	ff7_externals.field_text_box_window_entity_id_CC0960 = (byte*)get_absolute_value((uint32_t)ff7_externals.field_text_box_window_opening_6317A9, 0xB);
 	ff7_externals.current_entity_id_byte_CC0964 = (byte*)get_absolute_value((uint32_t)ff7_externals.field_text_box_window_opening_6317A9, 0x13);
 
-	// Steam achievement
-	uint32_t sub_434347 = get_relative_call(ff7_externals.battle_loop, 0x484);
-	uint32_t* pointer_functions_7C2980 = (uint32_t*)get_absolute_value(sub_434347, 0x19C);
-	ff7_externals.battle_enemy_killed_sub_433BD2 = pointer_functions_7C2980[0];
-	ff7_externals.battle_sub_5C7F94 = get_relative_call(ff7_externals.battle_enemy_killed_sub_433BD2, 0x2AF);
-	ff7_externals.menu_battle_end_mode = (uint16_t*)get_absolute_value(ff7_externals.menu_battle_end_sub_6C9543, 0x2C);
-	uint32_t menu_sub_6CBD54 = get_relative_call(ff7_externals.menu_sub_6CDA83, 0xC1);
-	ff7_externals.menu_sub_71FF95 = get_relative_call(menu_sub_6CBD54, 0x7);
-	ff7_externals.menu_shop_loop = get_relative_call(ff7_externals.menu_sub_71FF95, 0x84);
-	if (version == VERSION_FF7_102_US) {
-		ff7_externals.get_materia_gil = get_relative_call(ff7_externals.menu_shop_loop, 0x548);
-	} else {
-		ff7_externals.get_materia_gil = get_relative_call(ff7_externals.menu_shop_loop, 0x5C4);
-	}
-	ff7_externals.opcode_increase_gil_call = get_relative_call(ff7_externals.opcode_goldu, 0x38);
-
-	ff7_externals.display_battle_action_text_sub_6D71FA = get_relative_call(ff7_externals.display_battle_action_text_42782A, 0x77);
-
-	ff7_externals.opcode_add_materia_inventory_call = get_relative_call(ff7_externals.opcode_smtra, 0x72);
-	ff7_externals.menu_sub_6CBCF3 = get_relative_call(ff7_externals.opcode_add_materia_inventory_call, 0x43);
-	ff7_externals.menu_sub_705D16 = ff7_externals.menu_subs_call_table[4];
-	ff7_externals.menu_sub_6CC17F = get_relative_call(ff7_externals.menu_sub_705D16, 0x1729);
-
-	ff7_externals.menu_decrease_item_quantity = get_relative_call(ff7_externals.opcode_dlitm, 0x38);
-
-	ff7_externals.sub_60FA7D = get_relative_call(ff7_externals.opcode_setbyte, 0x14);
-
-	uint32_t menu_sub_6CBD65 = get_relative_call(ff7_externals.menu_sub_6CDA83, 0x54);
-	uint32_t menu_sub_722393 = get_relative_call(menu_sub_6CBD65, 0x4);
-	ff7_externals.menu_sub_7212FB = get_relative_call(menu_sub_722393, 0x8B);
-	switch(version) {
-		case VERSION_FF7_102_US:
-		case VERSION_FF7_102_SP:
-			ff7_externals.load_save_file = get_relative_call(ff7_externals.menu_sub_7212FB, 0xE9D);
-			break;
-		case VERSION_FF7_102_DE:
-		case VERSION_FF7_102_FR:
-			ff7_externals.load_save_file = get_relative_call(ff7_externals.menu_sub_7212FB, 0xEC5);
-			break;
-	}
-
-	// --------------------------------
+	ff7_externals.sub_6F54A2 = get_relative_call(ff7_externals.menu_sub_7212FB, 0x14F);
 }
 
 inline void ff7_data(struct ff7_game_obj* game_object)
