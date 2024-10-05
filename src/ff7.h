@@ -3170,6 +3170,7 @@ struct ff7_externals
 	uint32_t field_text_box_window_create_631586;
 	void (*field_text_box_window_opening_6317A9)(short);
 	void (*field_text_box_window_paging_631945)(short);
+	byte* (*sub_6CB9B8)(int a1);
 	uint32_t field_text_box_window_reverse_paging_632CAA;
 	uint32_t field_text_box_window_closing_632EB8;
 	char* field_entity_id_list; // 0xCC0960

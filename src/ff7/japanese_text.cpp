@@ -2213,11 +2213,21 @@ void auto_resize_text_box(int16_t WINDOW_ID, int16_t* pOutW, int16_t* pOutH)
     }
 
     // character names
-    // add constant width for now
     if(character >= 0xEA && character <= 0xF5) 
     {
-      charWidth = 16 * 6;
-      leftPadding = 0;
+      auto name_buffer = ff7_externals.sub_6CB9B8(character - 0xEA);
+      for (int j = 0; j < 9; ++j)
+      {
+        auto name_char = name_buffer[j];
+
+        if (name_char == 0xFF) break;
+
+        charWidth = charWidthData[0][name_char] & 0x1F;
+        leftPadding = charWidthData[0][name_char] >> 5;
+        W += leftPadding + std::ceil(0.5f * charWidth);
+      }
+      
+      continue;
     }
 
 		if(character == 0xE7)

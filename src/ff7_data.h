@@ -533,6 +533,7 @@ inline void ff7_find_externals(struct ff7_game_obj* game_object)
 	ff7_externals.field_text_box_window_create_631586 = get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x39);
 	ff7_externals.field_text_box_window_opening_6317A9 = (void (*)(short))get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x5A);
 	ff7_externals.field_text_box_window_paging_631945 = (void (*)(short))get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x6D);;
+	ff7_externals.sub_6CB9B8 = (byte* (*)(int))get_relative_call((uint32_t)ff7_externals.field_text_box_window_paging_631945, 0x693);
 	ff7_externals.field_text_box_window_reverse_paging_632CAA = get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x80);
 	ff7_externals.field_text_box_window_closing_632EB8 = get_relative_call(ff7_externals.field_opcode_message_update_loop_630D50, 0x235);
 	ff7_externals.opcode_message_loop_code = (WORD*)get_absolute_value(ff7_externals.field_opcode_message_update_loop_630D50, 0x12);
