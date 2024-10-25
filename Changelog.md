@@ -15,6 +15,10 @@
 - Core: Fix bgfx crash when memory cannot be allocated ( https://github.com/julianxhokaxhiu/FFNx/pull/755 )
 - Voice: Add support for `config.toml` configuration override based on Game Moment ID
 
+## FF7
+
+- Core: Add native support for japanese text rendering ( https://github.com/julianxhokaxhiu/FFNx/pull/737 )
+
 ## FF8
 
 - Core: Fix crash for non-us versions introduced in 1.20.3 ( https://github.com/julianxhokaxhiu/FFNx/pull/741 )
@@ -39,10 +43,6 @@
 ## FF8
 
 - Core: Fix Card Game mode and allow it to run at 60 FPS
-
-## FF7
-
-- Core: Add native support for japanese text rendering ( https://github.com/julianxhokaxhiu/FFNx/pull/737 )
 
 # 1.20.2
 
