@@ -289,6 +289,7 @@ void read_cfg()
 	ff7_fps_limiter = config["ff7_fps_limiter"].value_or(FPS_LIMITER_DEFAULT);
 	ff7_footsteps = config["ff7_footsteps"].value_or(false);
 	ff7_field_center = config["ff7_field_center"].value_or(true);
+	ff7_japanese_edition = config["ff7_japanese_edition"].value_or(false);
 	enable_analogue_controls = config["enable_analogue_controls"].value_or(false);
 	enable_inverted_vertical_camera_controls = config["enable_inverted_vertical_camera_controls"].value_or(false);
 	enable_inverted_horizontal_camera_controls = config["enable_inverted_horizontal_camera_controls"].value_or(false);

@@ -15,9 +15,7 @@ FFNx comes in two flavors, resembling the Google Chrome release names. Unlike th
 
 ### Final Fantasy VII
 
-**Supported Languages:** EN, DE, FR, SP, JP\*
-
-> \*: Japanese support is currently work in progress. The game starts fine but font is not rendering properly and battles do crash sometimes.
+**Supported Languages:** EN, DE, FR, SP, JP
 
 #### [1998 Eidos Release](https://www.mobygames.com/game/windows/final-fantasy-vii)
 

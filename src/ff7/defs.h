@@ -113,3 +113,19 @@ int ff7_dsound_createsoundbuffer(const WAVEFORMATEX *waveFormatEx);
 // minigames
 void ff7_condor_fix_unit_texture_load(uint32_t unk, struc_3 *struc_3);
 void __fastcall ff7_snowboard_parse_model_vertices(snowboard_this* _this, void* edx, const matrix *matrix, int current_obj, int obj_type, int unk);
+
+// japanese
+void engine_load_menu_graphics_objects_6C1468_jp(int a1);
+//__int16 field_submit_draw_text_640x480_6E706D(__int16 character_x, __int16 character_y, __int16 text_box_right_position, byte *buffer_text, float z_value);
+__int16 field_submit_draw_text_640x480_6E706D_jp(__int16 character_x, __int16 character_y, __int16 text_box_right_position, byte *buffer_text, float z_value);
+void field_draw_text_boxes_and_text_graphics_object_6ECA68_jp();
+//int common_submit_draw_char_from_buffer_6F564E(int x, int vertex_y, int n_shapes, unsigned __int16 letter, float z_value);
+int common_submit_draw_char_from_buffer_6F564E_jp(int x, int vertex_y, int n_shapes, unsigned __int16 letter, float z_value);
+void menu_draw_everything_6CC9D3_jp();
+void battle_draw_menu_everything_6CEE84_jp();
+void draw_text_top_display_6D1CC0(int a1, __int16 menu_box_idx, char a3, unsigned __int16 a4);
+void draw_text_top_display_6D1CC0_jp(int a1, __int16 menu_box_idx, char a3, unsigned __int16 a4);
+void main_menu_draw_everything_maybe_6C0B91_jp();
+void field_text_box_window_paging_631945_jp(short);
+void field_text_box_window_opening_6317A9_jp(short);
+int sub_6F54A2_jp(byte *a1);

@@ -362,6 +362,31 @@ void ff7_init_hooks(struct game_obj *_game_object)
         memset_code(ff7_externals.handle_actor_ready + 0xA8, 0x90, 29);
 	}
 
+	// ###########################
+	// japanese text
+	// ###########################
+	if (ff7_japanese_edition)
+	{
+		replace_function(ff7_externals.field_submit_draw_text_640x480_6E706D, field_submit_draw_text_640x480_6E706D_jp);
+		replace_function((uint32_t)ff7_externals.engine_load_menu_graphics_objects_6C1468, engine_load_menu_graphics_objects_6C1468_jp);
+		replace_function((uint32_t)ff7_externals.field_draw_text_boxes_and_text_graphics_object_6ECA68, field_draw_text_boxes_and_text_graphics_object_6ECA68_jp);
+		replace_function((uint32_t)ff7_externals.common_submit_draw_char_from_buffer_6F564E, common_submit_draw_char_from_buffer_6F564E_jp);
+		replace_function((uint32_t)	ff7_externals.menu_draw_everything_6CC9D3, menu_draw_everything_6CC9D3_jp);
+		replace_function((uint32_t)	ff7_externals.battle_draw_menu_everything_6CEE84, battle_draw_menu_everything_6CEE84_jp);
+		replace_function((uint32_t)	ff7_externals.draw_text_top_display_6D1CC0, draw_text_top_display_6D1CC0_jp);
+		replace_function((uint32_t)	ff7_externals.main_menu_draw_everything_maybe_6C0B91, main_menu_draw_everything_maybe_6C0B91_jp);
+		//replace_function((uint32_t)	ff7_externals.field_text_box_window_paging_631945, field_text_box_window_paging_631945_jp);
+		replace_function((uint32_t)	ff7_externals.field_text_box_window_opening_6317A9, field_text_box_window_opening_6317A9_jp);
+
+		patch_code_byte(0x632C4E, 0xC);
+		patch_code_byte(0x632C4E + 0x1, 0xC);
+		patch_code_byte(0x632C4E + 0x2, 0xC);
+		patch_code_byte(0x632C4E + 0x3, 0xC);
+		patch_code_byte(0x632C4E + 0x4, 0xC);
+
+		replace_function(ff7_externals.sub_6F54A2, sub_6F54A2_jp);
+	}
+
 	//######################
 	// menu rendering fix
 	//######################

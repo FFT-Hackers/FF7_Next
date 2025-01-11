@@ -133,6 +133,14 @@ struct bgra_color
 	float a;
 };
 
+struct bgra_byte
+{
+	byte b;
+	byte g;
+	byte r;
+	byte a;
+};
+
 struct rgba_color
 {
 	float r;

@@ -2965,7 +2965,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 
 			if (strstr(dllName, "af3dn.p") != NULL)
 			{
-				ff7_japanese_edition = strstr(parentName, "ff7_ja.exe") != NULL;
+				if (strstr(parentName, "ff7_ja.exe") != NULL) ff7_japanese_edition = true;
 
 				// Steam edition is usually installed in this path
 				if (strstr(basedir, "steamapps") != NULL) {

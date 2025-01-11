@@ -212,12 +212,12 @@ namespace ff7::field
                 replace_call_function(ff7_externals.field_update_models_positions + 0x90F, ff7_field_evaluate_encounter_rate);
 
                 // Text box message fix
-                patch_code_byte(ff7_externals.field_text_box_window_paging_631945 + 0xFD, 0x5 + common_frame_multiplier / 2);
-                patch_divide_code<byte>(ff7_externals.field_text_box_window_paging_631945 + 0x100, common_frame_multiplier);
-                patch_divide_code<WORD>(ff7_externals.field_text_box_window_paging_631945 + 0x111, common_frame_multiplier);
-                patch_code_byte(ff7_externals.field_text_box_window_paging_631945 + 0x141, 0x4 + common_frame_multiplier / 2);
-                patch_code_byte(ff7_externals.field_text_box_window_opening_6317A9 + 0x3D, 0x2 + common_frame_multiplier / 2);
-                patch_code_byte(ff7_externals.field_text_box_window_opening_6317A9 + 0xD2, 0x2 + common_frame_multiplier / 2);
+                patch_code_byte((uint32_t)ff7_externals.field_text_box_window_paging_631945 + 0xFD, 0x5 + common_frame_multiplier / 2);
+                patch_divide_code<byte>((uint32_t)ff7_externals.field_text_box_window_paging_631945 + 0x100, common_frame_multiplier);
+                patch_divide_code<WORD>((uint32_t)ff7_externals.field_text_box_window_paging_631945 + 0x111, common_frame_multiplier);
+                patch_code_byte((uint32_t)ff7_externals.field_text_box_window_paging_631945 + 0x141, 0x4 + common_frame_multiplier / 2);
+                patch_code_byte((uint32_t)ff7_externals.field_text_box_window_opening_6317A9 + 0x3D, 0x2 + common_frame_multiplier / 2);
+                patch_code_byte((uint32_t)ff7_externals.field_text_box_window_opening_6317A9 + 0xD2, 0x2 + common_frame_multiplier / 2);
                 patch_code_byte(ff7_externals.field_text_box_window_closing_632EB8 + 0x64, 0x2 + common_frame_multiplier / 2);
                 patch_code_byte(ff7_externals.field_text_box_window_closing_632EB8 + 0xBF, 0x2 + common_frame_multiplier / 2);
                 patch_divide_code<short>(ff7_externals.field_text_box_window_reverse_paging_632CAA + 0x42, common_frame_multiplier);

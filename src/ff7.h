@@ -247,6 +247,93 @@ struct ff7_indexed_vertices
 	struct ff7_graphics_object *graphics_object;
 };
 
+struct graphics_vertex
+{
+	point4d position;
+	bgra_byte color;
+	float alpha_mask;
+	float u;
+	float v;
+};
+
+struct attack_name_fixed_buffer
+{
+	byte name[32];
+};
+
+struct box_vertices { 
+	unsigned short initial_x ;
+	unsigned short initial_y;
+	unsigned short final_x;
+	unsigned short final_y;
+};
+
+struct battle_menu_data 
+{
+	unsigned short offset_x;
+	unsigned short offset_y;
+	unsigned short menu_width;
+	unsigned short menu_height;
+	unsigned short curr_offset_x;
+	unsigned short curr_offset_y;
+	unsigned short curr_width;
+	unsigned short curr_height;
+	unsigned short n_boxes;
+	box_vertices box_data[16];
+	unsigned short field_92;
+	unsigned short field_94;
+	unsigned short field_96;
+};
+
+struct battle_graphics_data
+{
+uint32_t battleground_rsd_data;
+uint32_t rsd_shadow_data_1;
+uint32_t rsd_shadow_data_2;
+uint32_t rsd_mark_triangle_data;
+ff7_graphics_object* s_effect_graphics_objects_1[3];
+ff7_graphics_object* s_effect_graphics_objects_2[3];
+ff7_graphics_object* btl_win_a_graphics_object;
+ff7_graphics_object* btl_win_b_graphics_object;
+ff7_graphics_object* btl_win_c_menu_border_graphics_object;
+ff7_graphics_object* btl_win_d_damage_number_graphics_object;
+ff7_graphics_object* menu_font_a_graphics_object;
+ff7_graphics_object* menu_font_b_graphics_object;
+ff7_graphics_object* box_color_graphics_object;
+ff7_graphics_object* graphics_data_other_array[2];
+uint32_t other_data[2];
+uint32_t battle_other_graphics_data[292];
+};
+
+struct text_box_data
+{
+byte* text_buffer;
+short window_pos_x;
+short window_pos_y;
+short window_width;
+short window_height;
+short current_window_width;
+short current_window_height;
+short current_text_offset_y;
+short current_max_character_length;
+short current_n_characters;
+short current_line_row;
+byte current_pos_y;
+byte flags;
+byte do_draw_menu_win_blend_4;
+byte do_draw_menu_win_b_blend_4;
+byte unused;
+byte max_menu_win_blend_4_length;
+short padding;
+uint32_t window_menu_win_b_blend_4_uv_related;
+short window_menu_win_blend_4_width;
+short window_menu_win_blend_4_height;
+short window_menu_win_b_blend_4_width;
+short window_menu_win_b_blend_4_height;
+short window_mode;
+short paging_flags;
+};
+
 struct ff7_graphics_object
 {
 	uint32_t polytype;
@@ -277,9 +364,9 @@ struct ff7_graphics_object
 	uint32_t field_64;
 	uint32_t field_68;
 	uint32_t field_6C;
-	uint32_t field_70;
+	graphics_vertex* vertex_transform;
 	uint32_t field_74;
-	uint32_t field_78;
+	int curr_total_n_shape;
 	uint32_t field_7C;
 	uint32_t field_80;
 	uint32_t field_84;
@@ -2099,7 +2186,8 @@ struct ff7_modules_global_object
   uint16_t field_72;
   uint16_t field_74;
   uint16_t field_76;
-  uint32_t field_78;
+  unsigned short special_current_key_input_status;
+  unsigned short field_7A;
   uint16_t field_7C;
   uint32_t field_80;
   uint16_t field_84;
@@ -3080,8 +3168,9 @@ struct ff7_externals
 	uint32_t field_handle_screen_fading;
 	uint32_t field_opcode_message_update_loop_630D50;
 	uint32_t field_text_box_window_create_631586;
-	uint32_t field_text_box_window_opening_6317A9;
-	uint32_t field_text_box_window_paging_631945;
+	void (*field_text_box_window_opening_6317A9)(short);
+	void (*field_text_box_window_paging_631945)(short);
+	byte* (*sub_6CB9B8)(int a1);
 	uint32_t field_text_box_window_reverse_paging_632CAA;
 	uint32_t field_text_box_window_closing_632EB8;
 	char* field_entity_id_list; // 0xCC0960
@@ -3649,6 +3738,165 @@ struct ff7_externals
 	uint32_t sub_5F4273;
 	uint32_t sub_5F342C;
 	DWORD* condor_uses_lgp;
+
+    // japanese
+	int* field_text_box_curr_n_characters_DC3CB0;
+	int* field_text_line_row_DC3CB8;
+	short* field_remaining_character_length_DC3CCC;
+	int* field_current_window_pos_x_DC3CB4;
+	short* word_91F028;
+	short* word_DC3CC0;
+	short* word_DC3CC4;
+	int* dword_DC3CD4;
+	short* word_DC3CC8;
+	int* g_text_spacing_DB958C;
+	ff7_graphics_object** menu_font_a_graphics_object_DC100C;
+	ff7_graphics_object** menu_font_b_graphics_object_DC1010;
+	ff7_graphics_object** menu_win_a_blend_4_graphics_object_DC0FC8;
+	ff7_graphics_object** menu_win_b_blend_4_graphics_object_DC0FCC;
+	ff7_graphics_object** menu_win_c_blend_4_graphics_object_DC0FD0;
+	ff7_graphics_object** menu_win_d_blend_4_graphics_object_DC0FD4;
+	ff7_graphics_object** menu_win_a_blend_0_graphics_object_DC0FDC;
+	ff7_graphics_object** menu_win_a_blend_1_graphics_object_DC0FE0;
+	ff7_graphics_object** menu_win_b_blend_1_graphics_object_DC0FE4;
+	ff7_graphics_object** menu_win_c_blend_1_graphics_object_DC0FE8;
+	ff7_graphics_object** menu_win_d_blend_1_graphics_object_DC0FEC;
+	ff7_graphics_object** menu_font_blend_4_graphics_object_DC1048;
+	ff7_graphics_object** menu_win_blend_4_graphics_object_DC104C;
+	ff7_graphics_object** menu_win_blend_0_graphics_object_DC1050;
+	ff7_graphics_object** menu_win_blend_1_graphics_object_DC1054;
+	ff7_graphics_object** menu_win_c_blend_4_diff_graphics_object_DC0FD8;
+
+	unsigned int* unk_DC1074;
+	char* aUsfont_a_h_tim;
+	char* aUsfont_a_l_tim;
+	char* aUsfont_b_h_tim;
+	char* aUsfont_b_l_tim;
+	char* aBtl_win_a_h_ti;
+	char* aBtl_win_a_l_ti;
+	char* aBtl_win_b_h_ti;
+	char* aBtl_win_b_l_ti;
+	char* aBtl_win_c_h_ti;
+	char* aBtl_win_c_l_ti;
+	char* aBtl_win_d_h_ti;
+	char* aBtl_win_d_l_ti;
+	char* aUsfont_h_tim;
+	char* aUsfont_l_tim;
+	char* aBtl_win_h_tim;
+	char* aBtl_win_l_tim;
+	
+	int* field_do_draw_character_DC3CEC;
+	int* field_do_draw_text_boxes_DC3CE8;
+
+	uint32_t engine_loop_main_loop_sub_4090E6;
+	uint32_t menu_enter_sub_6CD3B0;
+	void (*engine_load_menu_graphics_objects_6C1468)(int);
+	void (*sub_671082)(ff7_graphics_object**);
+	int (*sub_674530)();
+	void (*sub_67453A)(int);
+	void (*make_struc3_6745E6)(int, struc_3*);
+	void (*engine_set_blendmode_674659)(int, struc_3 *);
+	ff7_graphics_object* (*engine_load_graphics_object_6710AC)(int, signed int, struc_3*, char*, int);
+	int (*engine_get_viewport_type_404D80)();
+	ff7_game_obj* (*engine_get_game_object_676578)();
+
+	uint32_t field_draw_everything_sub_63A60B;
+	uint32_t field_submit_and_draw_text_box_and_text_6EBF2C;
+	uint32_t field_submit_draw_text_640x480_6E706D;
+
+	void (*field_draw_text_boxes_and_text_graphics_object_6ECA68)();
+	void (*engine_gfx_draw_predefined_polygon_set_field_84_sub_660E95)(int, ff7_game_obj*);
+	void (*engine_gfx_set_single_renderstate_sub_660C3A)(int, int, ff7_game_obj*);
+	void (*engine_draw_graphics_object_66E641)(ff7_graphics_object*, ff7_game_obj*);
+	void (*reset_field_54_graphics_object_66E62C)(ff7_graphics_object*);
+
+	int* menu_is_small_viewport_320_240_DC130C;
+	int* dword_DC3CE0;
+	int* dword_DC3CDC;
+	ff7_graphics_object** menu_window_bg_graphics_object_DC0FF0;	
+	ff7_graphics_object** menu_blend_window_bg_graphics_object_DC0FF4;
+	int* text_box_do_draw_menu_win_c_blend_4_DC3CE4;
+	int* text_box_do_draw_black_quad_graphics_object_DC3CF0;
+	ff7_graphics_object** menu_text_box_quad_graphics_object_DC1008;
+	int* dword_DC3D00;
+	int* do_draw_text_box_DC3CF8;
+	int* should_draw_text_box_black_quad_DC3D04;
+
+
+
+	uint32_t battle_menu_display_menu_6D82EA;
+	uint32_t battle_display_base_menu_6DD041;
+	int (*common_submit_draw_char_from_buffer_6F564E)(int, int, int, unsigned __int16, float);
+	uint32_t menu_loop_sub_6CC623;
+	void (*menu_draw_everything_6CC9D3)();
+	int (*g_get_do_render_menu_6CDBF2)();
+
+	int* dword_DC12DC;
+
+	void (*engine_gfx_setviewport_sub_66067A)(unsigned int, unsigned int, unsigned int, unsigned int, ff7_game_obj*);
+
+	unsigned int* menu_viewport_x_DC105C;
+	unsigned int* menu_viewport_y_DC1060;
+	unsigned int* menu_viewport_width_DC1064;
+	unsigned int* menu_viewport_view_DC1068;
+
+	void (*engine_gfx_draw_graphics_object_polygon_set_field_80_sub_660E6A)(ff7_graphics_object*, ff7_game_obj*);
+	ff7_graphics_object** menu_unknown3_graphics_object_DC0FFC;
+	int* dword_DC12EC;
+	int* dword_DC12E4;
+	ff7_graphics_object** menu_avatar2_1_graphics_object_DC1020;
+    ff7_graphics_object** menu_avatar2_2_graphics_object_DC1024;
+    ff7_graphics_object** menu_avatar2_3_graphics_object_DC1028;
+    ff7_graphics_object** menu_avatar2_4_graphics_object_DC102C;
+    ff7_graphics_object** menu_avatar2_5_graphics_object_DC1030;
+    ff7_graphics_object** menu_avatar2_6_graphics_object_DC1034;
+    ff7_graphics_object** menu_avatar2_7_graphics_object_DC1038;
+    ff7_graphics_object** menu_avatar2_8_graphics_object_DC103C;
+    ff7_graphics_object** menu_avatar2_9_graphics_object_DC1040;
+	ff7_graphics_object** menu_avatar_1_graphics_object_DC1014;
+    ff7_graphics_object** menu_avatar_2_graphics_object_DC1018;
+    ff7_graphics_object** menu_avatar_3_graphics_object_DC101C;
+	short* engine_game_mode_word_CBF9DC;
+	ff7_graphics_object** menu_buster_tex_graphics_object_DC1044;
+	ff7_graphics_object** menu_unknown4_graphics_object_DC1000;
+	ff7_graphics_object** menu_unknown2_graphics_object_DC0FF8;
+
+	uint32_t battle_loop_sub_41BAB3;
+	void (*battle_draw_menu_everything_6CEE84)();
+
+	ff7_graphics_object** menu_unknown5_graphics_object_DC1004;
+
+	uint32_t battle_display_text_6D7245;
+	void (*draw_text_top_display_6D1CC0)(int, __int16, char, unsigned __int16);
+	attack_name_fixed_buffer* (*kernel_get_text_sub_41963C)(unsigned int, int, int);
+	char (*sub_6D70F1)(int);
+
+	battle_menu_data** battle_menu_data_DC3630;
+	char* byte_DC3640;
+	attack_name_fixed_buffer** battle_text_buffer_DC208C;
+	battle_graphics_data** battle_graphics_data_ptr_9ADFD8;
+	char* g_is_battle_paused_DC0E6C;
+	bgra_byte* dword_91EFC8;
+	bgra_byte* dword_91EFCC;
+	bgra_byte* dword_91EFD0;
+	bgra_byte* dword_91EFD4;
+
+	uint32_t engine_field_A58_sub_6C0E2D;
+	void (*main_menu_draw_everything_maybe_6C0B91)();
+
+	text_box_data* text_box_window_data_array_CFF5B8;
+	byte* field_text_box_window_entity_id_CC0960;
+	byte* current_entity_id_byte_CC0964;
+
+	// JP Font graphics objects
+	ff7_graphics_object* menu_jafont_1_graphics_object;
+	ff7_graphics_object* menu_jafont_2_graphics_object;
+	ff7_graphics_object* menu_jafont_3_graphics_object;
+	ff7_graphics_object* menu_jafont_4_graphics_object;
+	ff7_graphics_object* menu_jafont_5_graphics_object;
+	ff7_graphics_object* menu_jafont_6_graphics_object;
+
+	uint32_t sub_6F54A2;
 };
 
 uint32_t ff7gl_load_group(uint32_t group_num, struct matrix_set *matrix_set, struct p_hundred *hundred_data, struct p_group *group_data, struct polygon_data *polygon_data, struct ff7_polygon_set *polygon_set, struct ff7_game_obj *game_object);

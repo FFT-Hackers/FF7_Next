@@ -238,7 +238,7 @@ struct common_externals
 	uint32_t set_midi_volume_fade;
 	uint32_t set_midi_tempo;
 	uint32_t remember_midi_playing_time;
-	uint32_t draw_graphics_object;
+	int (*draw_graphics_object)(int n_shape, graphics_object *graphics_object);
 	char *font_info;
 	uint32_t build_dialog_window;
 	uint32_t write_file;
