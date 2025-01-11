@@ -1750,10 +1750,15 @@ void Renderer::setScissor(uint16_t x, uint16_t y, uint16_t width, uint16_t heigh
         case MODE_FIELD:
             {
                 // Keep the default scissor for widescreen disabled movies and fields
-                bool is_movie_playing = *ff7_externals.word_CC1638 && !ff7_externals.modules_global_object->BGMOVIE_flag;
-                if((is_movie_playing && widescreen.getMovieMode() == WM_DISABLED) || widescreen.getMode() == WM_DISABLED)
+                bool isKeepDefaultScissor = false;
+                if (!ff8)
                 {
-                    scissorOffsetX = getInternalCoordX(x + abs(wide_viewport_x));
+                     bool is_movie_playing = *ff7_externals.word_CC1638 && !ff7_externals.modules_global_object->BGMOVIE_flag;
+                     isKeepDefaultScissor = (is_movie_playing && widescreen.getMovieMode() == WM_DISABLED) || widescreen.getMode() == WM_DISABLED;
+                }
+
+                if (isKeepDefaultScissor)
+                {
                     return;
                 }
 
@@ -1779,6 +1784,16 @@ void Renderer::setScissor(uint16_t x, uint16_t y, uint16_t width, uint16_t heigh
                     scissorWidth = getInternalCoordX(wide_viewport_width);
                 else if(internalState.bIsTLVertex)
                     scissorOffsetX = getInternalCoordX(x + abs(wide_viewport_x));
+
+                if (ff8)
+                {
+                    // This removes the black bars on the top and bottom of the screen
+                    if(y == 24 && height == 432)
+                    {
+                        scissorOffsetY = getInternalCoordY(0.0);
+                        scissorHeight = getInternalCoordY(480);
+                    }
+                }
             }
             break;
         default:
@@ -1788,6 +1803,16 @@ void Renderer::setScissor(uint16_t x, uint16_t y, uint16_t width, uint16_t heigh
                     scissorWidth = getInternalCoordX(wide_viewport_width);
                 else
                     scissorOffsetX = getInternalCoordX(x + abs(wide_viewport_x));
+
+                if (ff8)
+                {
+                    // This removes the black bars on the top and bottom of the screen
+                    if(y == 16 && height == 448)
+                    {
+                        scissorOffsetY = getInternalCoordY(0.0);
+                        scissorHeight = getInternalCoordY(480);
+                    }
+                }
             }
             break;
     }

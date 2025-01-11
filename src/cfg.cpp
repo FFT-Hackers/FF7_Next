@@ -504,9 +504,6 @@ void read_cfg()
 	else
 		external_vibrate_path += "/ff7";
 
-	// WIDESCREEN
-	if (ff8 && aspect_ratio > AR_STRETCH) aspect_ratio = AR_ORIGINAL;
-
 	// VOLUME
 	if (external_music_volume > 100) external_music_volume = 100;
 	if (external_sfx_volume > 100) external_sfx_volume = 100;
