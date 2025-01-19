@@ -12,6 +12,8 @@
 
 ## FF8
 
+- Modding: Allow modding card texts hardcoded in exe ( https://github.com/julianxhokaxhiu/FFNx/pull/774 )
+- Modding: Allow modding draw texts hardcoded in exe ( https://github.com/julianxhokaxhiu/FFNx/pull/774 )
 - SFX: Fix incorrect volume assignment when playing sfx effects using the external layer
 
 # 1.21.3

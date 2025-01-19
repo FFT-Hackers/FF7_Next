@@ -181,6 +181,8 @@ void ff8_find_externals()
 	ff8_externals.cardgame_funcs = (uint32_t *)get_absolute_value(ff8_externals.sub_534560, 0x5D);
 	ff8_externals.sub_536C30 = ff8_externals.cardgame_funcs[1];
 	ff8_externals.sub_535640 = ff8_externals.cardgame_funcs[3];
+	ff8_externals.sub_536CB0 = get_absolute_value(ff8_externals.sub_536C30, 0x14);
+	ff8_externals.card_texts_off_B96968 = (uint8_t **)get_absolute_value(ff8_externals.sub_536CB0, 0x59);
 	ff8_externals.sub_536C80 = get_absolute_value(ff8_externals.sub_536C30, 0x25);
 	ff8_externals.sub_5366D0 = get_absolute_value(ff8_externals.sub_535640, 0x42);
 	ff8_externals.cardgame_tim_texture_intro = (uint8_t *)get_absolute_value(ff8_externals.sub_536C80, 0x3);
@@ -317,6 +319,8 @@ void ff8_find_externals()
 	common_externals.stop_movie = get_relative_call(common_externals.update_movie_sample, 0x3E2);
 	ff8_externals.movie_object = (ff8_movie_obj *)get_absolute_value(common_externals.prepare_movie, 0xDB);
 
+	ff8_externals.drawpoint_messages = get_absolute_value(ff8_externals.opcode_drawpoint, 0xD6);
+
 	common_externals.debug_print = get_relative_call(common_externals.update_movie_sample, 0x141);
 
 	ff8_externals._load_texture = get_relative_call(ff8_externals.load_fonts, JP_VERSION ? 0x31B : 0x197);
@@ -412,6 +416,8 @@ void ff8_find_externals()
 	ff8_externals.sub_4BDB30 = get_relative_call(ff8_externals.sub_4B3140, 0x4);
 	ff8_externals.menu_callbacks = (ff8_menu_callback *)get_absolute_value(ff8_externals.sub_4BDB30, 0x11);
 	ff8_externals.menu_cards_render = get_absolute_value(uint32_t(ff8_externals.menu_callbacks[7].func), 0x5);
+	ff8_externals.sub_534AD0 = get_relative_call(ff8_externals.menu_cards_render, 0x76);
+	ff8_externals.card_texts_off_B96504 = (uint8_t **)get_absolute_value(ff8_externals.sub_534AD0, 0xB1);
 	ff8_externals.sub_4EFC00 = get_relative_call(ff8_externals.menu_cards_render, 0x2B6);
 	ff8_externals.sub_4EFCD0 = get_absolute_value(ff8_externals.sub_4EFC00, 0xB0);
 	ff8_externals.menu_config_render = get_absolute_value(uint32_t(ff8_externals.menu_callbacks[8].func), 0x3);

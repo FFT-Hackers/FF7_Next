@@ -19,3 +19,7 @@ And then FFNx will look for those files directly instead of data from the EXE.
 - `card_names.msd`: Card names. Note: this is not exactly the same
   format in the EXE, the msd format is used because it is a well documented format
   of FF8.
+- `card_texts.msd`: Card module texts. Note: this is not exactly the same
+  format in the EXE, the msd format is used because it is a well documented format
+  of FF8.
+- `draw_point.msd`: Draw point and Disc error messages

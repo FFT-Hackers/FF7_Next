@@ -27,6 +27,8 @@
 
 uint8_t *ff8_exe_scan_texts = nullptr;
 uint8_t *ff8_exe_card_names = nullptr;
+uint8_t *ff8_exe_draw_point = nullptr;
+uint8_t *ff8_exe_card_texts = nullptr;
 
 bool ff8_get_exe_path(const char *name, char *target_filename)
 {
@@ -44,6 +46,46 @@ bool ff8_get_battle_scan_texts_filename(char *filename)
 bool ff8_get_card_names_filename(char *filename)
 {
     return ff8_get_exe_path("card_names", filename);
+}
+
+bool ff8_get_draw_point_filename(char *filename)
+{
+    return ff8_get_exe_path("draw_point", filename);
+}
+
+bool ff8_get_card_texts_filename(char *filename)
+{
+    return ff8_get_exe_path("card_texts", filename);
+}
+
+void ff8_dump_msd(const char *filename, uint8_t *data)
+{
+    uint32_t *offsets = (uint32_t *)data;
+    uint32_t first_offset = *offsets;
+    int text_count = first_offset / 4;
+    int higher_offset = 0;
+
+    for (int i = 0; i < text_count; ++i) {
+        if (offsets[i] > higher_offset) {
+            higher_offset = offsets[i];
+        }
+    }
+
+    for (int i = higher_offset; i < higher_offset + 1024; ++i) {
+        if (data[i] == '\0') {
+            higher_offset = i + 1;
+            break;
+        }
+    }
+
+    FILE *f = fopen(filename, "wb");
+
+    if (f == nullptr) {
+        return;
+    }
+
+    fwrite(data, first_offset + higher_offset, 1, f);
+    fclose(f);
 }
 
 void ff8_dump_battle_scan_texts()
@@ -128,9 +170,54 @@ void ff8_dump_card_names()
     fclose(f);
 }
 
-uint8_t *ff8_open_msd(char *filename)
+void ff8_dump_card_texts()
+{
+    uint8_t *data = *ff8_externals.card_texts_off_B96968;
+    uint16_t *offsets = (uint16_t *)(data + 2);
+    uint32_t first_offset = *offsets;
+    int text_count = first_offset / 4;
+    int higher_offset = 0;
+    uint32_t offsets_rel_to_start[0x200] = {};
+
+    for (int i = 0; i < text_count; ++i) {
+        offsets_rel_to_start[i] = offsets[i * 2];
+        if (offsets[i * 2] > higher_offset) {
+            higher_offset = offsets[i * 2];
+        }
+    }
+
+    for (int i = higher_offset; i < higher_offset + 1024; ++i) {
+        if (data[i] == '\0') {
+            higher_offset = i + 1;
+            break;
+        }
+    }
+
+    char filename[MAX_PATH] = {};
+    if (ff8_get_card_texts_filename(filename)) {
+        ffnx_warning("Save exe file skipped because the file [ %s ] already exists.\n", filename);
+
+        return;
+    }
+
+    FILE *f = fopen(filename, "wb");
+
+    if (f == nullptr) {
+        return;
+    }
+
+    fwrite(offsets_rel_to_start, text_count * 4, 1, f);
+    fwrite(data + first_offset, higher_offset - first_offset, 1, f);
+    fclose(f);
+}
+
+uint8_t *ff8_open_msd(char *filename, int *data_size = nullptr)
 {
     if (trace_all || trace_direct) ffnx_info("Direct file using %s\n", filename);
+
+    if (data_size != nullptr) {
+        *data_size = 0;
+    }
 
     FILE *f = fopen(filename, "rb");
 
@@ -150,6 +237,10 @@ uint8_t *ff8_open_msd(char *filename)
 
     fread(target_data, file_size, 1, f);
     fclose(f);
+
+    if (data_size != nullptr) {
+        *data_size = file_size;
+    }
 
     return target_data;
 }
@@ -188,6 +279,72 @@ uint8_t *ff8_override_card_names()
     ff8_exe_card_names = ff8_open_msd(filename);
 
     return ff8_exe_card_names;
+}
+
+uint8_t *ff8_override_draw_point()
+{
+    if (ff8_exe_draw_point != nullptr) {
+        return ff8_exe_draw_point;
+    }
+
+    char filename[MAX_PATH] = {};
+    if (! ff8_get_draw_point_filename(filename)) {
+        if (trace_all || trace_direct) ffnx_warning("Direct file not found %s\n", filename);
+
+        return nullptr;
+    }
+
+    ff8_exe_draw_point = ff8_open_msd(filename);
+
+    return ff8_exe_draw_point;
+}
+
+uint8_t *ff8_override_card_texts()
+{
+    if (ff8_exe_card_texts != nullptr) {
+        return ff8_exe_card_texts;
+    }
+
+    char filename[MAX_PATH] = {};
+    if (! ff8_get_card_texts_filename(filename)) {
+        if (trace_all || trace_direct) ffnx_warning("Direct file not found %s\n", filename);
+
+        return nullptr;
+    }
+
+    int data_size = 0;
+    uint8_t *ff8_exe_card_texts_msd = ff8_open_msd(filename, &data_size);
+
+    if (ff8_exe_card_texts_msd == nullptr) {
+        return nullptr;
+    }
+
+    ff8_exe_card_texts = (uint8_t *)driver_malloc(data_size + 16); // Allocated once, never freed
+
+    if (ff8_exe_card_texts == nullptr) {
+        driver_free(ff8_exe_card_texts_msd);
+
+        return nullptr;
+    }
+
+    uint32_t *msd_offsets = (uint32_t *)ff8_exe_card_texts_msd;
+    *(uint16_t *)ff8_exe_card_texts = *(uint16_t *)*ff8_externals.card_texts_off_B96968;
+    int text_count = 256;
+
+    for (int i = 0; i < text_count; ++i) {
+        if (msd_offsets[i] / 4 < text_count) {
+            text_count = msd_offsets[i] / 4;
+        }
+    }
+
+    // We shift the positions (+2)
+    memcpy(ff8_exe_card_texts + 2, ff8_exe_card_texts_msd, text_count * 4);
+    // But not the texts!
+    memcpy(ff8_exe_card_texts + text_count * 4, ff8_exe_card_texts_msd + text_count * 4, data_size - text_count * 4);
+
+    driver_free(ff8_exe_card_texts_msd);
+
+    return ff8_exe_card_texts;
 }
 
 uint8_t *ff8_battle_get_scan_text(uint8_t target_id)
@@ -238,6 +395,12 @@ void dump_exe_data()
     {
         ff8_dump_battle_scan_texts();
         ff8_dump_card_names();
+
+        if (!ff8_get_draw_point_filename(dirname)) {
+            ff8_dump_msd(dirname, *(uint8_t **)ff8_externals.drawpoint_messages);
+        }
+
+        ff8_dump_card_texts();
     }
 }
 
@@ -252,5 +415,14 @@ void exe_data_init()
     {
         replace_call(ff8_externals.sub_84F8D0 + 0x88, ff8_battle_get_scan_text);
         replace_function(ff8_externals.get_card_name, ff8_get_card_name);
+        uint8_t *msd = ff8_override_draw_point();
+        if (msd != nullptr) {
+            patch_code_uint(ff8_externals.drawpoint_messages, uint32_t(msd));
+        }
+        msd = ff8_override_card_texts();
+        if (msd != nullptr) {
+            patch_code_uint(uint32_t(ff8_externals.card_texts_off_B96504), uint32_t(msd));
+            patch_code_uint(uint32_t(ff8_externals.card_texts_off_B96968), uint32_t(msd));
+        }
     }
 }
